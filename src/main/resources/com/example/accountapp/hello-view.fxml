@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.accountapp.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.accountapp.controllers.HelloController">
+   <children>
+      <AnchorPane layoutY="102.0" prefHeight="298.0" prefWidth="700.0" style="-fx-background-color: #fafafa;">
+         <children>
+            <TextField fx:id="emailField" layoutX="217.0" layoutY="149.0" prefHeight="26.0" prefWidth="266.0" promptText="EMAIL">
+               <font>
+                  <Font name="Gill Sans Ultra Bold Condensed" size="12.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="passwField" layoutX="217.0" layoutY="190.0" prefHeight="26.0" prefWidth="266.0" promptText="PASSWORD">
+               <font>
+                  <Font name="Gill Sans Ultra Bold Condensed" size="12.0" />
+               </font>
+            </PasswordField>
+            <Label layoutX="274.0" layoutY="104.0" text="Authorization" textFill="#8c8b8b">
+               <font>
+                  <Font name="Gill Sans Ultra Bold Condensed" size="26.0" />
+               </font>
+            </Label>
+            <Button fx:id="authSignInButton" layoutX="305.0" layoutY="229.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="90.0" style="-fx-background-color: #e0a284;" text="SIGN IN" textFill="#faf6f6">
+               <font>
+                  <Font name="Gill Sans Ultra Bold" size="10.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Label layoutX="244.0" layoutY="45.0" text="AccountApp" textFill="#faf5f5">
+         <font>
+            <Font name="Gill Sans Ultra Bold Condensed" size="40.0" />
+         </font>
+      </Label>
+      <Button fx:id="loginSignUpButton" layoutX="611.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #e0a284;" text="SIGN UP" textFill="#faf6f6">
+         <font>
+            <Font name="Gill Sans Ultra Bold" size="10.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

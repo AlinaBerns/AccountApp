@@ -1,2 +1,20 @@
-package com.example.accountapp.controllers;public class HomeController {
+package com.example.accountapp.controllers;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+
+public class HomeController {
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    void initialize() {
+
+    }
+
 }
