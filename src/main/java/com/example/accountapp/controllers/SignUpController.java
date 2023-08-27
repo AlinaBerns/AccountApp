@@ -53,7 +53,8 @@ public class SignUpController {
             String fname = signUpFirstNameField.getText();
             String lname = signUpLastnameField.getText();
 
-            accountRepository.createAccount(new Account(email, passw));
+            userService.createUser(new User(fname,lname, Optional.of(new Account(email, passw))));
+
         });
 
     }

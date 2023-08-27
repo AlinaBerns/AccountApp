@@ -10,19 +10,17 @@ import java.util.Optional;
 public class AccountRepository {
     public boolean createAccount(Account account) {
         //send account to database
-        String query = String.format("INSERT INTO "+ Const.ACCOUNT_TABLE+ " VALUES ('%s' , '%s');",
-                account.getEmail(), account.getPassw());
-
-        Connection connection = MySqlConfiguration.getConnection();
+        String query = "INSERT INTO " + Const.ACCOUNT_TABLE + "("
+                + Const.EMAIL + "," + Const.USER_PASSWORD + ") "
+                + "VALUES(?,?);";
 
         //INSERT with executeUpdate;
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
+        try (Connection connection = MySqlConfiguration.getConnection()){
+            PreparedStatement statement = connection.prepareStatement(query);
 
-            //this is important
-
-            connection.close();
+            statement.setString(1, account.getEmail());
+            statement.setString(2, account.getPassw());
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             System.err.println("ERROR: COULD NOT CREATE ACCOUNT");

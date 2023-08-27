@@ -10,25 +10,27 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import static com.example.accountapp.config.Const.USER_FIRSTNAME;
+
+
 public class UserRepository {
     public Optional<User> createUser(User user) {
 
         //send account to database
-        String query = String.format("INSERT INTO " +Const.USER_TABLE+ "(" + Const.USER_ID, Const.USER_FIRSTNAME,
-                Const.USER_SURNAME, Const.ACCOUNT_EMAIL + ")" + "VALUES (? , ? , ? , ?);");
+        String query = "INSERT INTO " +Const.USER_TABLE + "(id, fname, lname, accemail) VALUES(?,?,?,?)";
 
 
         //Try-with-resourses
         try (Connection connection = MySqlConfiguration.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)){
 
-            statement.setLong(1, user.getId());
+            statement.setLong(1, 0);
             statement.setString(2, user.getFname());
             statement.setString(3, user.getLname());
             statement.setString(4, user.getAccount().getEmail());
 
             //INSERT with executeUpdate;
-            statement.executeUpdate(query);
+            statement.executeUpdate();
 
 
         } catch (SQLException e) {
