@@ -4,6 +4,7 @@ import com.example.accountapp.model.Account;
 import com.example.accountapp.model.User;
 import com.example.accountapp.repository.AccountRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public class LoginService {
@@ -19,29 +20,17 @@ public class LoginService {
        return true;
     }
 
-    public boolean loginIsExist(String email) {
-        AccountRepository accountRepository = new AccountRepository();
+    public Optional<User> login(String email, String passw) {
+        Optional<User> user = userService.getUser(email);
 
-        return accountRepository.getAccount(email).isPresent();
+        if (user.isPresent()&&user.get().getAccount().getPassw().equals(passw)) {
+            return user;
+        }
+
+        return Optional.empty();
     }
 
-    public void login (String email, String passw) {
-        Account account = new Account(email, passw);
-
-        Optional <Account> optionalAccount = Optional.of(account);
-
-        AccountRepository accountRepository = new AccountRepository();
-
-
-
-        if (loginIsExist(email)&&!accountRepository.getAccount(email).equals(optionalAccount)) {
-            //System.out.println("Your password isn't correct");
-
-        } else if (loginIsExist(email)&&accountRepository.getAccount(email).equals(optionalAccount)) {
-            System.out.println("WELCOME, "+account.getEmail());
-
-        } else {
-            System.out.println("Account isn't exist");
-        }
+    public void registerManyUsers(List<User> userList) {
+        userService.createManyUsers(userList);
     }
 }

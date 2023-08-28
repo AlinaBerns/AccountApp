@@ -5,6 +5,7 @@ import com.example.accountapp.config.MySqlConfiguration;
 import com.example.accountapp.model.Account;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Optional;
 
 public class AccountRepository {
@@ -15,7 +16,7 @@ public class AccountRepository {
                 + "VALUES(?,?);";
 
         //INSERT with executeUpdate;
-        try (Connection connection = MySqlConfiguration.getConnection()){
+        try (Connection connection = MySqlConfiguration.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
 
             statement.setString(1, account.getEmail());
@@ -30,14 +31,14 @@ public class AccountRepository {
         return true;
     }
 
-    public Optional<Account> getAccount (String email) {
+    public Optional<Account> getAccount(String email) {
 
         //elke methode in repository moet Connection bevatten
 
         String query = String.format(
-                "Select * FROM Account WHERE email like '%s' ", email);
+                "Select * FROM " +Const.ACCOUNT_TABLE+" WHERE "+Const.EMAIL+ " like '%s' ", email);
 
-        String prQuery = "Select * FROM Account WHERE email like ? ";
+        String prQuery = "Select * FROM "+ Const.ACCOUNT_TABLE+" WHERE email like ? ";
 
         try (Connection connection = MySqlConfiguration.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(prQuery);
@@ -59,5 +60,26 @@ public class AccountRepository {
         }
 
         return Optional.empty();
+    }
+
+    public void createManyAccounts(List<Account> accountList) {
+        String query = "INSERT INTO "+Const.ACCOUNT_TABLE+" VALUES (?, ?); ";
+
+        try (Connection connection = MySqlConfiguration.getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            for (Account account : accountList) {
+                statement.setString(1, account.getEmail());
+                statement.setString(2, account.getPassw());
+                statement.addBatch();
+            }
+
+            statement.executeBatch();
+
+        } catch (SQLException e) {
+            System.err.println("IT FAILED");
+            e.printStackTrace();
+        }
     }
 }

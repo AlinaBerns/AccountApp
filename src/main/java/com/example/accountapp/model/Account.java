@@ -36,4 +36,12 @@ public class Account {
     public int hashCode() {
         return Objects.hash(email, passw);
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "email='" + email + '\'' +
+                ", passw='" + passw + '\'' +
+                '}';
+    }
 }

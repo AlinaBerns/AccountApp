@@ -3,6 +3,8 @@ package com.example.accountapp.controllers;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -45,15 +47,18 @@ public class SignUpController {
     void initialize() {
 
         signUpButton.setOnAction(actionEvent -> {
-            AccountRepository accountRepository = new AccountRepository();
-            UserService userService = new UserService();
-            MySqlConfiguration mySqlConfiguration = new MySqlConfiguration();
+            //AccountRepository accountRepository = new AccountRepository();
+            //UserService userService = new UserService();
+
+            LoginService loginService = new LoginService();
             String email = signUpEmailField.getText();
             String passw = signUpPasswField.getText();
             String fname = signUpFirstNameField.getText();
             String lname = signUpLastnameField.getText();
 
-            userService.createUser(new User(fname,lname, Optional.of(new Account(email, passw))));
+            //userService.createUser(new User(fname,lname, Optional.of(new Account(email, passw))));
+
+            loginService.register(fname, lname, email, passw);
 
         });
 

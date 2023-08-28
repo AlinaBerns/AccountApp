@@ -50,5 +50,16 @@ public class User {
         return optionalAccount.get();
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", optionalAccount=" + optionalAccount +
+                ", account=" + account +
+                '}';
+    }
 }
+
+

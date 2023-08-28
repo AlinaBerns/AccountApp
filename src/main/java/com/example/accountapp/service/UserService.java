@@ -4,6 +4,8 @@ import com.example.accountapp.model.Account;
 import com.example.accountapp.model.User;
 import com.example.accountapp.repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserService {
@@ -18,16 +20,27 @@ public class UserService {
             userRepository.createUser(user);
         }
 
-
-        return true;
+        return false;
     }
 
-    public static void main(String[] args) {
-        Account account = new Account("lala", "lala");
-        User user = new User("l", "a", Optional.of(account));
-        System.out.println(user.toString());
+    public Optional<User> getUser(String email) {
+       Optional<Account> account = accountService.getAccount(email);
 
-        Account account1 = user.getAccount();
-        System.out.println(account1.getEmail());
+       if (account.isPresent()) {
+           Account foundAccount = account.get();
+           Optional<User> user = userRepository.getUser(foundAccount);
+
+           return user;
+       } else {
+           return Optional.empty();
+       }
+    }
+    public void createManyUsers(List<User> userList){
+        List <Account> accounts = new ArrayList<>();
+
+        for (User user: userList) {
+            accounts.add(user.getAccount());
+        }
+        accountService.createManyAccounts(accounts);
     }
 }
