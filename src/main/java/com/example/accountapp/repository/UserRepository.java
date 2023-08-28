@@ -44,7 +44,7 @@ public class UserRepository {
     }
     public Optional<User> getUser(Account account) {
 
-        String query = "SELECT * FROM User WHERE accemail like ?";
+        String query = "SELECT * FROM User WHERE "+Const.ACCOUNT_EMAIL+" like ?";
 
         try(Connection connection = MySqlConfiguration.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -73,7 +73,7 @@ public class UserRepository {
     }
 
     public void createManyUsers (List<User> usersList) {
-        String query = "INSERT INTO user VALUES (?, ?, ?, ?);";
+        String query = "INSERT INTO "+Const.USER_TABLE+" VALUES (?, ?, ?, ?);";
 
         try (Connection connection = MySqlConfiguration.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);

@@ -38,7 +38,7 @@ public class AccountRepository {
         String query = String.format(
                 "Select * FROM " +Const.ACCOUNT_TABLE+" WHERE "+Const.EMAIL+ " like '%s' ", email);
 
-        String prQuery = "Select * FROM "+ Const.ACCOUNT_TABLE+" WHERE email like ? ";
+        String prQuery = "Select * FROM "+ Const.ACCOUNT_TABLE+" WHERE "+Const.EMAIL+" like ? ";
 
         try (Connection connection = MySqlConfiguration.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(prQuery);
@@ -67,6 +67,8 @@ public class AccountRepository {
 
         try (Connection connection = MySqlConfiguration.getConnection()) {
 
+            connection.setAutoCommit(false);
+
             PreparedStatement statement = connection.prepareStatement(query);
 
             for (Account account : accountList) {
@@ -76,6 +78,8 @@ public class AccountRepository {
             }
 
             statement.executeBatch();
+
+            connection.commit();
 
         } catch (SQLException e) {
             System.err.println("IT FAILED");
