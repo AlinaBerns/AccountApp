@@ -83,6 +83,8 @@ public class UserRepository {
                 preparedStatement.setString(2, user.getFname());
                 preparedStatement.setString(3, user.getLname());
                 preparedStatement.setString(4, user.getAccount().getEmail());
+
+                preparedStatement.addBatch();
             }
 
             preparedStatement.executeBatch();
