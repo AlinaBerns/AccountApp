@@ -37,12 +37,12 @@ public class UserService {
     }
     public void createManyUsers(List<User> userList){
         List <Account> accounts = new ArrayList<>();
-        List<User> users = new ArrayList<>();
-        UserService userService = new UserService();
+
 
         for (User user: userList) {
             accounts.add(user.getAccount());
         }
         accountService.createManyAccounts(accounts);
+        userRepository.createManyUsers(userList);
     }
 }
