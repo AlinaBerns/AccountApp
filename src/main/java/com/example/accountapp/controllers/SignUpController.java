@@ -59,6 +59,7 @@ public class SignUpController {
             //userService.createUser(new User(fname,lname, Optional.of(new Account(email, passw))));
 
             loginService.register(fname, lname, email, passw);
+            System.out.println("Success");
 
         });
 

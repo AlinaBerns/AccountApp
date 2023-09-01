@@ -18,10 +18,5 @@ public class HomeController {
 
     @FXML
     void initialize() {
-
-
-
     }
-
-
 }
